@@ -33,6 +33,7 @@ export async function POST(req, res) {
             return Response.json({ success: false, error: 'Worker already accepted this work' });
         } else {
             work.totalWorkersRequired = work.totalWorkersRequired - 1;
+            console.log("0->0>", work.totalWorkersRequired);
         }
 
         work.acceptedWorkers.push(workerId);

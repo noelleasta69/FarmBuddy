@@ -84,3 +84,5 @@ vetSchema.methods.generateRefreshToken = async function () {
 const Vet = mongoose.models.Vet || mongoose.model('Vet', vetSchema);
 
 export default Vet;
+
+

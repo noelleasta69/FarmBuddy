@@ -91,6 +91,11 @@ const page = () => {
 
 
 
+  const handelPostClick = (postId) => {
+    router.push(`/post-details/${postId}`);
+  };
+  
+
   return (
     <FarmerLayout>
       <div className="h-[70vh] mt-[3rem] bg-white">
@@ -132,7 +137,7 @@ const page = () => {
         <div className="flex flex-col items-center mt-5 gap-5">
           {
             posts.map((item, ind) => (
-              <div key={ind} className="h-auto w-[90%] bg-white p-6 flex gap-4 rounded-md drop-shadow-md hover:drop-shadow-lg border">
+              <div onClick={()=>handelPostClick(item._id)} key={ind} className="h-auto w-[90%] bg-white p-6 flex gap-4 rounded-md drop-shadow-md hover:drop-shadow-lg border">
                 <div className="w-[70%]">
                   <p className="text-lg font-semibold mb-2">{item.jobTitle}</p>
                   <p>Description: {item.jobDescription}</p>

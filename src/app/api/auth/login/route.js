@@ -6,6 +6,7 @@ import cookie from 'cookie';
 import { NextResponse } from 'next/server';
 
 export async function POST(req) {
+  console.log("here form auth login..");
   await dbConnect();
   try {
     const options = {
@@ -14,6 +15,7 @@ export async function POST(req) {
       path: '/',
       sameSite: 'strict',
     };
+    // console.log("the user is >>>>>>>>>>>>>>>>>>>>>>>>")
     const { mobile, password, type } = await req.json();
 
     console.log(mobile, password, type)
@@ -33,6 +35,7 @@ export async function POST(req) {
       throw new Error("Invalid user type");
     }
     
+    console.log("user is  from login route::>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
     console.log(user);
     if (!user) throw new Error("Invalid Username");
     

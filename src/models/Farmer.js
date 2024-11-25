@@ -21,14 +21,21 @@ const farmerSchema = new mongoose.Schema({
     required: true
   },
   refreshToken:{
-      type:String,
+      type: String,
   },
   associatedVets: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Vet',
     default: []
+  }],
+  // Define the postedWorks field
+  postedWorks: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Work', // Reference to the Work model
+    default: []  // Default value as an empty array
   }]
 }, {timestamps: true});
+
 
 
 farmerSchema.pre("save", async function (next) {
@@ -48,7 +55,7 @@ farmerSchema.methods.generateAccessToken = async function(){
       },
       process.env.ACCESS_TOKEN_SECRET,
       {
-          expiresIn: process.env.ACCESS_TOKEN_EXPIRY
+          expiresIn: process.env.ACCESS_TOKEN_EXPIRY || "1h"
       }
   )
 }

@@ -70,6 +70,9 @@ export async function POST(req) {
     }
 }
 
+
+
+// remaining part
 // delete a specific work posted by a farmer
 export async function DELETE(req, res) {
     // const authResult = await auth(req);

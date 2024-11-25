@@ -31,7 +31,7 @@ const page = () => {
             // console.log(res);
             if(res.status !== 200) throw new Error("Error while login");
 
-            window.alert("Login Successfully");
+            // window.alert("Login Successfully");
             const userData = await res.data.user;
             console.log(userData);
 

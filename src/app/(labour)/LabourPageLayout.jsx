@@ -9,6 +9,11 @@ function LabourPageLayout({ children }) {
 
   const router = useRouter();
 
+  const handleSettingsClick = async()=>{
+    router.push("/settings");
+  }
+
+
   const handleLogoutClick = async()=>{
     try {
       const res = await axios.get("/api/auth/logout");
@@ -33,7 +38,7 @@ function LabourPageLayout({ children }) {
           {
             menu &&
             <div className="absolute h-auto w-[16rem] bg-white top-[3.8rem] right-0 py-4 rounded-b-md">
-              <div className="text-lg h-[3rem] px-8 hover:bg-slate-300 flex items-center cursor-pointer transition">{JSON.parse(window.localStorage.getItem("user")).name}</div>
+              <div onClick={handleSettingsClick} className="text-lg h-[3rem] px-8 hover:bg-slate-300 flex items-center cursor-pointer transition">{JSON.parse(window.localStorage.getItem("user")).name}</div>
               <div onClick={handleLogoutClick} className="text-lg h-[3rem] px-8 hover:bg-slate-300 flex items-center cursor-pointer transition">Logout</div>
             </div>
           }

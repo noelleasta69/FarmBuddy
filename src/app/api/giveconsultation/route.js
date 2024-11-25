@@ -83,3 +83,52 @@ export async function POST(req, res) {
         return Response.json({ success: false, error: error.message });
     }
 }
+
+
+// this route shows all the requests form farmers
+export async function GET(req) {
+    try {
+      const { searchParams } = new URL(req.url);
+      const vetId = searchParams.get("vetId");
+      console.log("vet id in giveConsultation, ", vetId);
+  
+      if (!vetId) {
+        return NextResponse.json(
+          { success: false, error: "Missing vetId in query parameters" },
+          { status: 400 }
+        );
+      }
+  
+      await dbConnect();
+  
+      const vet = await Vet.findById(vetId);
+      if (!vet) {
+        return NextResponse.json({ message: "Vet not found" }, { status: 404 });
+      }
+  
+      console.log("the vet :: ", vet);
+  
+      const associatedFarmers = await Farmer.find({
+        _id: { $in: vet.associatedFarmers },
+      });
+  
+      return NextResponse.json(
+        {
+          success: true,
+          associatedFarmers: associatedFarmers.map((farmer) => ({
+            id: farmer._id,
+            name: farmer.name,
+            contact: farmer.contact,
+            location: farmer.location,
+          })),
+        },
+        { status: 200 }
+      );
+    } catch (e) {
+      console.error(e);
+      return NextResponse.json(
+        { message: "An error occurred while processing your request" },
+        { status: 500 }
+      );
+    }
+  }
